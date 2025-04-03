@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class loginPageViewController implements Initializable {
+public class IoginPageViewController implements Initializable {
     @FXML
     private Button btnLogin;
 
