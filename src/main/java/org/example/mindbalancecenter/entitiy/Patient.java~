@@ -28,18 +28,8 @@ public class Patient {
     private Year yearOfBirth;
     @Column(name = "registration_date" ,nullable = false)
     private Date registrationDate;
-    @OneToMany(mappedBy = "patientId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patientId")
     private List<ProgramRegistration> programRegistration;
     @OneToMany(mappedBy = "patientId", fetch = FetchType.LAZY)
     private List<TherapySession> therapySessions;
-
-    public Patient(String id, String name, String phoneNumber, String address, String gender, Year yearOfBirth, Date registrationDate) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.gender = gender;
-        this.yearOfBirth = yearOfBirth;
-        this.registrationDate = registrationDate;
-    }
 }

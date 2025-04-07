@@ -4,20 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Entity
-@Table(name = "user")
+@AllArgsConstructor
+@Data
 public class UserDto {
-    @Id
-    @Column (name = "user_name")
     private String userName;
-    @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     private String role;
-    public UserDto(String userName, String password, String role) {
-        this.userName = userName;
-        this.password = password;
-        this.role = role;
-    }
 }

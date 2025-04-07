@@ -4,30 +4,18 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-@Entity
-@Table(name = "payment")
+@AllArgsConstructor
+@Data
 public class PaymentDto {
-    @Id
-    @Column (name = "payment_id")
     private String id;
-    @Column(scale = 2 ,nullable = false)
     private BigDecimal amount;
-    @Column(name = "payment_date" ,nullable = false)
     private Date paymentDate;
-    @Column(name = "session_id")
     private String sessionId;
-    @Column(name = "program_registration_id")
     private String programRegistrationId;
-
-    public PaymentDto(String id, BigDecimal amount, Date paymentDate, String sessionId, String programRegistrationId) {
-        this.id = id;
-        this.amount = amount;
-        this.paymentDate = paymentDate;
-        this.sessionId = sessionId;
-        this.programRegistrationId = programRegistrationId;
-    }
 }

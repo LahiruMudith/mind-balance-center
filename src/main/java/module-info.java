@@ -4,6 +4,7 @@ module org.example.mindbalancecenter {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires java.naming;
+    requires static lombok;
 
     opens org.example.mindbalancecenter.controller to javafx.fxml;
     opens org.example.mindbalancecenter to javafx.fxml;

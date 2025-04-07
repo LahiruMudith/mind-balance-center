@@ -12,6 +12,7 @@ import org.example.mindbalancecenter.dto.PatientDto;
 
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ResourceBundle;
@@ -90,7 +91,7 @@ public class PatientPageController implements Initializable {
     }
 
     @FXML
-    void save(ActionEvent event) {
+    void save(ActionEvent event) throws SQLException, ClassNotFoundException {
         RadioButton selectedRadioButton = (RadioButton) gender.getSelectedToggle();
         Date registrationDate = Date.valueOf(LocalDate.now());
         String gender = selectedRadioButton.getText();
@@ -105,7 +106,12 @@ public class PatientPageController implements Initializable {
                 registrationDate
         );
 
-        patientBO.savePatient(patientDto);
+        boolean b = patientBO.savePatient(patientDto);
+        if (b){
+            new Alert(Alert.AlertType.CONFIRMATION, "Patient Added Successfully").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR, "Failed to Add Patient").show();
+        }
     }
 
     @FXML

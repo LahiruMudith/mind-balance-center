@@ -1,6 +1,7 @@
 package org.example.mindbalancecenter.dao;
 
 import org.example.mindbalancecenter.bo.SuperBO;
+import org.example.mindbalancecenter.dao.custom.impl.PatientDAOImpl;
 
 public class DAOFactory {
     public static DAOFactory daoFactory;
@@ -13,6 +14,9 @@ public class DAOFactory {
     }
     public SuperDAO getDAO(DAOType daoType){
         switch (daoType){
+            case PATIENT -> {
+                return new PatientDAOImpl();
+            }
             default -> {
                 return null;
             }

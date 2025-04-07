@@ -12,6 +12,7 @@ import org.example.mindbalancecenter.dto.PatientDto;
 
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ResourceBundle;
@@ -80,8 +81,8 @@ public class PatientPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Text text = new Text("+94");
-        txtPhoneNumber
+        Text sriLnakaCoutryCode = new Text("+94");
+        txtPhoneNumber.setText(sriLnakaCoutryCode.getText());
     }
 
     @FXML
@@ -90,7 +91,7 @@ public class PatientPageController implements Initializable {
     }
 
     @FXML
-    void save(ActionEvent event) {
+    void save(ActionEvent event) throws SQLException, ClassNotFoundException {
         RadioButton selectedRadioButton = (RadioButton) gender.getSelectedToggle();
         Date registrationDate = Date.valueOf(LocalDate.now());
         String gender = selectedRadioButton.getText();

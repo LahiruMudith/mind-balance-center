@@ -15,7 +15,7 @@ public class PatientBOImpl implements PatientBO {
     public boolean savePatient(PatientDto patientDto) throws SQLException, ClassNotFoundException {
         System.out.println(patientDto.toString());
         System.out.println("come to bo");
-        boolean save = patientDAO.save(new Patient(
+        return patientDAO.save(new Patient(
                 patientDto.getId(),
                 patientDto.getName(),
                 patientDto.getPhoneNumber(),
@@ -24,7 +24,5 @@ public class PatientBOImpl implements PatientBO {
                 patientDto.getYearOfBirth(),
                 patientDto.getRegistrationDate()
         ));
-        System.out.println(save);
-        return save;
     }
 }
