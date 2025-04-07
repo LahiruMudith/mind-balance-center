@@ -36,7 +36,7 @@ public class TherapySession {
     private BigDecimal totalRemainingAmount;
     @Column(name = "payment_status" ,nullable = false)
     private boolean paymentStatus;
-    @OneToOne(mappedBy = "sessionId", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "sessionId")
     private Payment paymentId;
 
     public TherapySession(String id, Patient patientId, String phoneNumber, String sessionDuration, Date sessionDate, Date placeDate, Therapist therapistId, TherapyProgram programId, BigDecimal payment, BigDecimal totalRemainingAmount, boolean paymentStatus) {

@@ -4,20 +4,24 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import org.example.mindbalancecenter.config.FactoryConfiguration;
+import org.hibernate.Session;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/mindbalancecenter/view/login-page-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/home-page-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 832);
-        stage.setTitle("Hello!");
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
+        Session session = FactoryConfiguration.getInstance().getSession();
         launch();
     }
 }

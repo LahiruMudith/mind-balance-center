@@ -19,7 +19,7 @@ public class ProgramRegistration {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "program_id" ,nullable = false)
     private TherapyProgram programId;;
-    @OneToOne(mappedBy = "programRegistrationId", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "programRegistrationId")
     private Payment payment;
 
 }

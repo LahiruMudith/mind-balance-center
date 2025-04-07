@@ -7,7 +7,6 @@ module org.example.mindbalancecenter {
 
     opens org.example.mindbalancecenter.controller to javafx.fxml;
     opens org.example.mindbalancecenter to javafx.fxml;
-    opens org.example.mindbalancecenter.entitiy to org.hibernate.orm.core;
     exports org.example.mindbalancecenter;
     exports org.example.mindbalancecenter.bo;
     opens org.example.mindbalancecenter.bo to javafx.fxml;

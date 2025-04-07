@@ -1,12 +1,13 @@
-package org.example.mindbalancecenter.entitiy;
+package org.example.mindbalancecenter.dto;
 
-import jakarta.persistence.*;
-
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "therapist")
-public class Therapist {
+public class TherapistDto {
     @Id
     @Column (name = "therapist_id")
     private String id;
@@ -20,12 +21,8 @@ public class Therapist {
     private String assignedProgram;
     @Column(nullable = false)
     private String specialization;
-    @OneToMany(mappedBy = "therapistId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<TherapySession> therapySessions;
-    @OneToOne(mappedBy = "therapistId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private TherapyProgram therapyProgram;
 
-    public Therapist(String id, String name, String phoneNumber, String experienceYear, String assignedProgram, String specialization) {
+    public TherapistDto(String id, String name, String phoneNumber, String experienceYear, String assignedProgram, String specialization) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;

@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="832.0" fitWidth="1280.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/photos/bg-image.png" />
+            <Image url="@../photosge.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ede4da" focusTraversable="true" height="548.0" layoutX="620.0" layoutY="116.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="578.0" />
@@ -43,7 +43,7 @@
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../assets/icons/Close.png" />
+                  <Image url="@../../../../assets/icons/Close.png" />
                </image>
             </ImageView>
          </graphic>
@@ -55,7 +55,7 @@
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../assets/icons/MinimizeWindow.png" />
+                  <Image url="@../../../../assets/icons/MinimizeWindow.png" />
                </image>
             </ImageView>
          </graphic>

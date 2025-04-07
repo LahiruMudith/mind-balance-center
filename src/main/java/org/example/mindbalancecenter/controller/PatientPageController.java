@@ -1,13 +1,19 @@
 package org.example.mindbalancecenter.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import org.example.mindbalancecenter.bo.BOFactory;
 import org.example.mindbalancecenter.bo.PatientBO;
+import org.example.mindbalancecenter.dto.PatientDto;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.ResourceBundle;
 
 public class PatientPageController implements Initializable {
@@ -74,8 +80,36 @@ public class PatientPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Text sriLnakaCoutryCode = new Text("+94");
+        txtPhoneNumber.setText(sriLnakaCoutryCode.getText());
+    }
+
+    @FXML
+    void delete(ActionEvent event) {
 
     }
 
-    public void save(){ }
+    @FXML
+    void save(ActionEvent event) {
+        RadioButton selectedRadioButton = (RadioButton) gender.getSelectedToggle();
+        Date registrationDate = Date.valueOf(LocalDate.now());
+        String gender = selectedRadioButton.getText();
+
+        PatientDto patientDto = new PatientDto(
+                txtID.getText(),
+                txtName.getText(),
+                txtPhoneNumber.getText(),
+                txtAddress.getText(),
+                gender,
+                Year.parse(txtBirthYear.getText()),
+                registrationDate
+        );
+
+        patientBO.savePatient(patientDto);
+    }
+
+    @FXML
+    void update(ActionEvent event) {
+
+    }
 }

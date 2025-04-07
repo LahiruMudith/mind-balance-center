@@ -15,11 +15,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mindbalancecenter.controller.HomePageController">
    <children>
-      <Button layoutX="1238.0" mnemonicParsing="false" style="-fx-background-color: none;">
+      <Button layoutX="1238.0" mnemonicParsing="false" onAction="#btnClose" style="-fx-background-color: none;">
          <graphic>
             <ImageView fx:id="btnClose" fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../assets/icons/Close.png" />
+                  <Image url="@../assets/icons/Close.png" />
                </image>
             </ImageView>
          </graphic>
@@ -27,11 +27,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="1238.0" layoutY="34.0" mnemonicParsing="false" style="-fx-background-color: none;">
+      <Button layoutX="1238.0" layoutY="34.0" mnemonicParsing="false" onAction="#btnMinimize" style="-fx-background-color: none;">
          <graphic>
             <ImageView fx:id="btnMinimize" fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../assets/icons/MinimizeWindow.png" />
+                  <Image url="@../assets/icons/MinimizeWindow.png" />
                </image>
             </ImageView>
          </graphic>
@@ -41,14 +41,14 @@
       </Button>
       <VBox layoutX="25.0" layoutY="149.0" prefHeight="535.0" prefWidth="310.0" style="-fx-background-color: #E7E6EA; -fx-background-radius: 20;">
          <children>
-            <Button fx:id="btnProgramRegistration" mnemonicParsing="false" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="PROGRAM REGISTRATION" textFill="WHITE">
+            <Button fx:id="btnProgramRegistration" mnemonicParsing="false" onAction="#programRegistration" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="PROGRAM REGISTRATION" textFill="WHITE">
                <font>
                   <Font name="Poppins Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../assets/icons/Petition.png" />
+                        <Image url="@../assets/icons/Petition.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -59,14 +59,14 @@
                   <Insets left="13.0" top="40.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnTherapySession" mnemonicParsing="false" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="THERAPY SESSION" textFill="WHITE">
+            <Button fx:id="btnTherapySession" mnemonicParsing="false" onAction="#therapySessionSection" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="THERAPY SESSION" textFill="WHITE">
                <font>
                   <Font name="Poppins Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../assets/icons/School.png" />
+                        <Image url="@../assets/icons/School.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -77,14 +77,14 @@
                   <Insets left="13.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnPatient" mnemonicParsing="false" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="PATIENT" textFill="WHITE">
+            <Button fx:id="btnPatient" mnemonicParsing="false" onAction="#patientSection" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="PATIENT" textFill="WHITE">
                <font>
                   <Font name="Poppins Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../assets/icons/Cast.png" />
+                        <Image url="@../assets/icons/Cast.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -95,14 +95,14 @@
                   <Insets left="13.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnTherapist" mnemonicParsing="false" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="THERAPIST" textFill="WHITE">
+            <Button fx:id="btnTherapist" mnemonicParsing="false" onAction="#therapistSection" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="THERAPIST" textFill="WHITE">
                <font>
                   <Font name="Poppins Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../assets/icons/Biochemistry.png" />
+                        <Image url="@../assets/icons/Biochemistry.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -113,14 +113,14 @@
                   <Insets left="13.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnTherapyProgram" mnemonicParsing="false" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="THERAPY PROGRAM" textFill="WHITE">
+            <Button fx:id="btnTherapyProgram" mnemonicParsing="false" onAction="#therapyProgramSection" prefHeight="66.0" prefWidth="282.0" style="-fx-background-color: #013D35; -fx-background-radius: 20;" text="THERAPY PROGRAM" textFill="WHITE">
                <font>
                   <Font name="Poppins Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../assets/icons/Scorecard.png" />
+                        <Image url="@../assets/icons/Scorecard.png" />
                      </image>
                      <viewport>
                         <Rectangle2D />
@@ -140,11 +140,11 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: none;" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#btnSection" style="-fx-background-color: none;" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fx:id="btnSetting" fitHeight="47.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../assets/icons/setting.png" />
+                              <Image url="@../assets/icons/setting.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -155,11 +155,11 @@
                         <Insets left="80.0" right="10.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: none;" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#btnLogout" style="-fx-background-color: none;" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fx:id="btnSignOut" fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../assets/icons/Logout.png" />
+                              <Image url="@../assets/icons/Logout.png" />
                            </image>
                         </ImageView>
                      </graphic>

@@ -1,21 +1,21 @@
-package org.example.mindbalancecenter.entitiy;
+package org.example.mindbalancecenter.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.time.Year;
-import java.util.List;
 
 @Entity
 @Table(name = "therapy_session")
-public class TherapySession {
+public class TherapySessionDto {
     @Id
     @Column (name = "session_id")
     private String id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patientId;
+    @Column(name = "patient_id" ,nullable = false)
+    private String patientId;
     @Column(name = "phone_number" ,nullable = false)
     private String phoneNumber;
     @Column(name = "session_duration" ,nullable = false)
@@ -24,22 +24,18 @@ public class TherapySession {
     private Date sessionDate;
     @Column(name = "place_date" ,nullable = false)
     private Date placeDate;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "therapist_id" ,nullable = false)
-    private Therapist therapistId;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "program_id" ,nullable = false)
-    private TherapyProgram programId;
+    @Column(name = "therapist_id" ,nullable = false)
+    private String therapistId;
+    @Column(name = "program_id" ,nullable = false)
+    private String programId;
     @Column(scale = 2 ,nullable = false)
     private BigDecimal payment;
     @Column(name = "total_remaining_amount", scale = 2 ,nullable = false)
     private BigDecimal totalRemainingAmount;
     @Column(name = "payment_status" ,nullable = false)
     private boolean paymentStatus;
-    @OneToOne(mappedBy = "sessionId", cascade = CascadeType.ALL)
-    private Payment paymentId;
 
-    public TherapySession(String id, Patient patientId, String phoneNumber, String sessionDuration, Date sessionDate, Date placeDate, Therapist therapistId, TherapyProgram programId, BigDecimal payment, BigDecimal totalRemainingAmount, boolean paymentStatus) {
+    public TherapySessionDto(String id, String patientId, String phoneNumber, String sessionDuration, Date sessionDate, Date placeDate, String therapistId, String programId, BigDecimal payment, BigDecimal totalRemainingAmount, boolean paymentStatus) {
         this.id = id;
         this.patientId = patientId;
         this.phoneNumber = phoneNumber;

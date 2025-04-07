@@ -36,7 +36,7 @@
       </RadioButton>
       <HBox layoutX="268.0" layoutY="200.0" prefHeight="59.0" prefWidth="363.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
-            <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="124.0" style="-fx-background-color: none;">
+            <Button mnemonicParsing="false" onAction="#save" prefHeight="59.0" prefWidth="124.0" style="-fx-background-color: none;">
                <graphic>
                   <ImageView fx:id="btnAdd" fitHeight="35.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: none;">
                      <image>
@@ -51,7 +51,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="101.0" style="-fx-background-color: none;">
+            <Button mnemonicParsing="false" onAction="#update" prefHeight="66.0" prefWidth="101.0" style="-fx-background-color: none;">
                <graphic>
                   <ImageView fx:id="btnUpdate" fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: none;">
                      <image>
@@ -66,7 +66,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: none;">
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#delete" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: none;">
                <graphic>
                   <ImageView fx:id="btnSetting2" fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>

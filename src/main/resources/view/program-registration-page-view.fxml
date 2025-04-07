@@ -20,7 +20,7 @@
          <graphic>
             <ImageView fx:id="btnSetting2" fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../assets/icons/CashinHand.png" />
+                  <Image url="@../../../../assets/icons/CashinHand.png" />
                </image>
             </ImageView>
          </graphic>
@@ -44,7 +44,7 @@
          <graphic>
             <ImageView fx:id="btnAdd1" fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: none;">
                <image>
-                  <Image url="@../../../../../../../assets/icons/AddNew.png" />
+                  <Image url="@../../../../assets/icons/AddNew.png" />
                </image>
             </ImageView>
          </graphic>
