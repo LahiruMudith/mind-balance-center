@@ -21,11 +21,11 @@
       <TextField fx:id="txtExperienceYear" focusTraversable="false" layoutX="670.0" layoutY="113.0" prefHeight="47.0" prefWidth="161.0" promptText="Enter Experience Year" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
       <HBox layoutX="268.0" layoutY="200.0" prefHeight="59.0" prefWidth="363.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
-            <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="124.0" style="-fx-background-color: none;">
+            <Button mnemonicParsing="false" onAction="#btnAdd" prefHeight="59.0" prefWidth="124.0" style="-fx-background-color: none;">
                <graphic>
                   <ImageView fx:id="btnAdd" fitHeight="35.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: none;">
                      <image>
-                        <Image url="@../../../../assets/icons/Add.png" />
+                        <Image url="@../assets/icons/Add.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -36,11 +36,11 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="101.0" style="-fx-background-color: none;">
+            <Button mnemonicParsing="false" onAction="#btnUpdate" prefHeight="66.0" prefWidth="101.0" style="-fx-background-color: none;">
                <graphic>
                   <ImageView fx:id="btnUpdate" fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: none;">
                      <image>
-                        <Image url="@../../../../assets/icons/update.png" />
+                        <Image url="@../assets/icons/update.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -51,11 +51,11 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: none;">
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDelete" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: none;">
                <graphic>
                   <ImageView fx:id="btnSetting2" fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/icons/Delete.png" />
+                        <Image url="@../assets/icons/Delete.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -68,14 +68,14 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="tblPatient" layoutX="14.0" layoutY="305.0" prefHeight="412.0" prefWidth="881.0">
+      <TableView fx:id="tblPatient" layoutX="14.0" layoutY="305.0" onMouseClicked="#tblTherapist" prefHeight="412.0" prefWidth="881.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="67.0" text="ID" />
           <TableColumn fx:id="colName" prefWidth="203.0" text="NAME" />
             <TableColumn fx:id="colPhoneNumber" prefWidth="123.0" text="PHONE NUMBER" />
-            <TableColumn fx:id="colGender" prefWidth="167.0" text="Specialization" />
-            <TableColumn fx:id="colBirthYear" prefWidth="209.0" text="Assigned Program" />
-            <TableColumn fx:id="colRegistrationDate" prefWidth="111.0" text="Experience Year" />
+            <TableColumn fx:id="colSpetialization" prefWidth="167.0" text="Specialization" />
+            <TableColumn fx:id="colAssignedProgram" prefWidth="209.0" text="Assigned Program" />
+            <TableColumn fx:id="colExperienceYEar" prefWidth="111.0" text="Experience Year" />
         </columns>
       </TableView>
       <ComboBox fx:id="cmbAssignedProgram" layoutX="371.0" layoutY="113.0" prefHeight="47.0" prefWidth="245.0" promptText="Choose Assigned Program" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />

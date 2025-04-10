@@ -1,12 +1,18 @@
 package org.example.mindbalancecenter.entitiy;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "therapy_program")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class TherapyProgram {
     @Id
     @Column (name = "program_id")
@@ -26,5 +32,4 @@ public class TherapyProgram {
     private List<ProgramRegistration> programRegistration;
     @OneToMany(mappedBy = "programId",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TherapySession> therapySessions;
-
 }

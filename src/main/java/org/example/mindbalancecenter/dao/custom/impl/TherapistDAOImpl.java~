@@ -1,0 +1,6 @@
+package org.example.mindbalancecenter.dao.custom.impl;
+
+import org.example.mindbalancecenter.dao.custom.TherapistDAO;
+
+public class TherapistDAOImpl implements TherapistDAO {
+}

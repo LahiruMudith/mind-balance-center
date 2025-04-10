@@ -7,15 +7,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import org.example.mindbalancecenter.bo.BOFactory;
-import org.example.mindbalancecenter.bo.TherapistBO;
 import org.example.mindbalancecenter.dto.tm.TherapistTM;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TherapistPageController implements Initializable {
-    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST);
+    T
     @FXML
     private ImageView btnAdd;
 
@@ -84,7 +82,6 @@ public class TherapistPageController implements Initializable {
                 assignedProgram,
                 specialization
         );
-        therapistBO.save(therapistTM);
     }
 
     @FXML

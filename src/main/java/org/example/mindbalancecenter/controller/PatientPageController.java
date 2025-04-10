@@ -132,6 +132,7 @@ public class PatientPageController implements Initializable {
         boolean b = patientBO.deletePatient(txtID.getText());
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION, "Patient Delete Successfully").show();
+            refeshPage();
         }else {
             new Alert(Alert.AlertType.ERROR, "Failed to Delete Patient").show();
         }
@@ -156,6 +157,7 @@ public class PatientPageController implements Initializable {
         boolean b = patientBO.savePatient(patientDto);
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION, "Patient Added Successfully").show();
+            refeshPage();
         }else {
             new Alert(Alert.AlertType.ERROR, "Failed to Add Patient").show();
         }
@@ -180,6 +182,7 @@ public class PatientPageController implements Initializable {
         boolean b = patientBO.updatePatient(patientDto);
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION, "Patient Updated Successfully").show();
+            refeshPage();
         }else {
             new Alert(Alert.AlertType.ERROR, "Failed to Update Patient").show();
         }

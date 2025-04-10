@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class ProgramController {
     @FXML
@@ -64,6 +65,11 @@ public class ProgramController {
 
     @FXML
     void save(ActionEvent event) {
+
+    }
+
+    @FXML
+    void tblTherapyProgram(MouseEvent event) {
 
     }
 
