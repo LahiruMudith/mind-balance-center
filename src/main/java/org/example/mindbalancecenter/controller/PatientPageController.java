@@ -1,20 +1,26 @@
 package org.example.mindbalancecenter.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import org.example.mindbalancecenter.bo.BOFactory;
 import org.example.mindbalancecenter.bo.PatientBO;
 import org.example.mindbalancecenter.dto.PatientDto;
+import org.example.mindbalancecenter.dto.tm.PatientTM;
 
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PatientPageController implements Initializable {
@@ -32,25 +38,25 @@ public class PatientPageController implements Initializable {
     private ImageView btnUpdate;
 
     @FXML
-    private TableColumn<?, ?> colAddress;
+    private TableColumn<PatientTM, String> colAddress;
 
     @FXML
-    private TableColumn<?, ?> colBirthYear;
+    private TableColumn<PatientTM, Date> colBirthYear;
 
     @FXML
-    private TableColumn<?, ?> colGender;
+    private TableColumn<PatientTM, String> colGender;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<PatientTM, String> colId;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<PatientTM, String> colName;
 
     @FXML
-    private TableColumn<?, ?> colPhoneNumber;
+    private TableColumn<PatientTM, String> colPhoneNumber;
 
     @FXML
-    private TableColumn<?, ?> colRegistrationDate;
+    private TableColumn<PatientTM, Date> colRegistrationDate;
 
     @FXML
     private ToggleGroup gender;
@@ -62,7 +68,7 @@ public class PatientPageController implements Initializable {
     private RadioButton radioBtnMale;
 
     @FXML
-    private TableView<?> tblPatient;
+    private TableView<PatientTM> tblPatient;
 
     @FXML
     private TextField txtAddress;
@@ -81,13 +87,54 @@ public class PatientPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        colBirthYear.setCellValueFactory(new PropertyValueFactory<>("yearOfBirth"));
+        colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
+
         Text sriLnakaCoutryCode = new Text("+94");
         txtPhoneNumber.setText(sriLnakaCoutryCode.getText());
+
+        refeshPage();
+    }
+
+    void refeshPage(){
+//        load patient data to table
+        try {
+            List<PatientDto> allPatient = patientBO.getAllPatient();
+            ObservableList<PatientTM> patientTMS = FXCollections.observableArrayList();
+            for (PatientDto patientDto : allPatient){
+                PatientTM patientTM = new PatientTM(
+                        patientDto.getId(),
+                        patientDto.getName(),
+                        patientDto.getPhoneNumber(),
+                        patientDto.getAddress(),
+                        patientDto.getGender(),
+                        patientDto.getYearOfBirth(),
+                        patientDto.getRegistrationDate()
+                );
+                patientTMS.add(patientTM);
+            }
+            tblPatient.setItems(patientTMS);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
-    void delete(ActionEvent event) {
-
+    void delete(ActionEvent event) throws SQLException, ClassNotFoundException {
+        boolean b = patientBO.deletePatient(txtID.getText());
+        if (b){
+            new Alert(Alert.AlertType.CONFIRMATION, "Patient Delete Successfully").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR, "Failed to Delete Patient").show();
+        }
     }
 
     @FXML
@@ -115,7 +162,44 @@ public class PatientPageController implements Initializable {
     }
 
     @FXML
-    void update(ActionEvent event) {
+    void update(ActionEvent event) throws SQLException, ClassNotFoundException {
+        RadioButton selectedRadioButton = (RadioButton) gender.getSelectedToggle();
+        Date registrationDate = Date.valueOf(LocalDate.now());
+        String gender = selectedRadioButton.getText();
 
+        PatientDto patientDto = new PatientDto(
+                txtID.getText(),
+                txtName.getText(),
+                txtPhoneNumber.getText(),
+                txtAddress.getText(),
+                gender,
+                Year.parse(txtBirthYear.getText()),
+                registrationDate
+        );
+
+        boolean b = patientBO.updatePatient(patientDto);
+        if (b){
+            new Alert(Alert.AlertType.CONFIRMATION, "Patient Updated Successfully").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR, "Failed to Update Patient").show();
+        }
+    }
+
+
+    @FXML
+    void tblPatient(MouseEvent event) {
+        PatientTM selectedItem = tblPatient.getSelectionModel().getSelectedItem();
+        if (selectedItem != null){
+            txtID.setText(selectedItem.getId());
+            txtName.setText(selectedItem.getName());
+            txtPhoneNumber.setText(selectedItem.getPhoneNumber());
+            txtAddress.setText(selectedItem.getAddress());
+            txtBirthYear.setText(String.valueOf(selectedItem.getYearOfBirth()));
+            if (selectedItem.getGender().equals("Male")){
+                radioBtnMale.setSelected(true);
+            }else if (selectedItem.getGender().equals("Female")) {
+                raddioBtnFemale.setSelected(true);
+            }
+        }
     }
 }

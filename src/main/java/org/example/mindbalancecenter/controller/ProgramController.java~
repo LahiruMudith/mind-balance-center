@@ -1,0 +1,4 @@
+package org.example.mindbalancecenter.controller;
+
+public class ProgramController {
+}

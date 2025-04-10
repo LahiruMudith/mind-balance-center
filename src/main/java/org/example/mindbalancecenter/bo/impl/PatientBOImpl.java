@@ -7,14 +7,14 @@ import org.example.mindbalancecenter.dto.PatientDto;
 import org.example.mindbalancecenter.entitiy.Patient;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatientBOImpl implements PatientBO {
     PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PATIENT);
 
     @Override
     public boolean savePatient(PatientDto patientDto) throws SQLException, ClassNotFoundException {
-        System.out.println(patientDto.toString());
-        System.out.println("come to bo");
         boolean save = patientDAO.save(new Patient(
                 patientDto.getId(),
                 patientDto.getName(),
@@ -24,7 +24,44 @@ public class PatientBOImpl implements PatientBO {
                 patientDto.getYearOfBirth(),
                 patientDto.getRegistrationDate()
         ));
-        System.out.println(save);
         return save;
+    }
+
+    @Override
+    public boolean updatePatient(PatientDto patientDto) throws SQLException, ClassNotFoundException {
+        return patientDAO.update(new Patient(
+                patientDto.getId(),
+                patientDto.getName(),
+                patientDto.getPhoneNumber(),
+                patientDto.getAddress(),
+                patientDto.getGender(),
+                patientDto.getYearOfBirth(),
+                patientDto.getRegistrationDate()
+        ));
+    }
+
+    @Override
+    public boolean deletePatient(String id) throws SQLException, ClassNotFoundException {
+        return patientDAO.delete(id);
+    }
+
+    @Override
+    public List<PatientDto> getAllPatient() throws SQLException, ClassNotFoundException {
+        List<PatientDto> patientDtos = new ArrayList<>();
+
+        List<Patient> all = patientDAO.getAll();
+        for (Patient patient : all){
+            patientDtos.add(new PatientDto(
+                    patient.getId(),
+                    patient.getName(),
+                    patient.getPhoneNumber(),
+                    patient.getAddress(),
+                    patient.getGender(),
+                    patient.getYearOfBirth(),
+                    patient.getRegistrationDate()
+            ));
+        }
+        System.out.println(patientDtos);
+        return patientDtos;
     }
 }

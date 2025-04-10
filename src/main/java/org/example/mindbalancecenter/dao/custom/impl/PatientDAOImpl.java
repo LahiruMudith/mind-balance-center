@@ -9,17 +9,17 @@ import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PatientDAOImpl implements PatientDAO {
     @Override
-    public ArrayList<Patient> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+    public List<Patient> getAll() throws SQLException, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        return session.createQuery("FROM Patient", Patient.class).list();
     }
 
     @Override
     public boolean save(Patient entity) throws SQLException, ClassNotFoundException {
-        System.out.println("Come to dao");
-        System.out.println(entity.toString());
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
@@ -47,12 +47,47 @@ public class PatientDAOImpl implements PatientDAO {
 
     @Override
     public boolean update(Patient entity) throws SQLException, ClassNotFoundException {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.merge(entity);
+            transaction.commit();
+            session.close();
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            session.close();
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Patient patient = session.get(Patient.class, id);
+            session.remove(patient);
+            transaction.commit();
+            session.close();
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            session.close();
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override

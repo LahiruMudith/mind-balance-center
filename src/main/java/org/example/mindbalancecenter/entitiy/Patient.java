@@ -3,6 +3,7 @@ package org.example.mindbalancecenter.entitiy;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.time.Year;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "patient")
 @AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class Patient {
     @Id
     @Column (name = "patient_id")

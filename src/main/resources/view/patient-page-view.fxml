@@ -83,7 +83,7 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="tblPatient" layoutX="14.0" layoutY="305.0" prefHeight="412.0" prefWidth="881.0">
+      <TableView fx:id="tblPatient" layoutX="14.0" layoutY="305.0" onMouseClicked="#tblPatient" prefHeight="412.0" prefWidth="881.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colName" prefWidth="195.0" text="NAME" />

@@ -1,10 +1,8 @@
-package org.example.mindbalancecenter.dto;
+package org.example.mindbalancecenter.dto.tm;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.time.Year;
@@ -12,7 +10,7 @@ import java.time.Year;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PatientDto {
+public class PatientTM {
     private String id;
     private String name;
     private String phoneNumber;
