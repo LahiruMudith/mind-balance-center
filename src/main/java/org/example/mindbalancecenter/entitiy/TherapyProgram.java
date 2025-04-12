@@ -25,11 +25,20 @@ public class TherapyProgram {
     private BigDecimal cost;
     @Column(nullable = false)
     private String description;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "therapist_id" ,nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "therapist_id" , nullable = false)
     private Therapist therapistId;
     @OneToMany(mappedBy = "programId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProgramRegistration> programRegistration;
     @OneToMany(mappedBy = "programId",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TherapySession> therapySessions;
+
+    public TherapyProgram(String id, String name, String duration, BigDecimal cost, String description, Therapist therapistId) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+        this.cost = cost;
+        this.description = description;
+        this.therapistId = therapistId;
+    }
 }

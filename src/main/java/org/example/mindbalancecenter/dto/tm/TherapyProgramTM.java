@@ -14,5 +14,5 @@ public class TherapyProgramTM {
     private String duration;
     private BigDecimal cost;
     private String description;
-    private String therapistId;
+    private String therapistName;
 }

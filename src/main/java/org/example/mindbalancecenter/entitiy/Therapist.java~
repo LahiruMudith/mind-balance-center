@@ -22,7 +22,7 @@ public class Therapist {
     private String phoneNumber;
     @Column(name = "experience_year" ,nullable = false)
     private String experienceYear;
-    @Column(name ="assigned_program")
+    @Column(name ="assigned_program" ,nullable = false)
     private String assignedProgram;
     @Column(nullable = false)
     private String specialization;
