@@ -124,7 +124,6 @@ public class ProgramController implements Initializable {
             txtProgramDuration.setText(selectedItem.getDuration());
             txtCost.setText(String.valueOf(selectedItem.getCost().intValue()));
             cmbTherapist.setValue(selectedItem.getTherapistName());
-            System.out.println(selectedItem.getTherapistName());
         }
     }
 

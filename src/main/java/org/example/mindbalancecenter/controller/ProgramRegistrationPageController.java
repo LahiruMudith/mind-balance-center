@@ -1,10 +1,33 @@
 package org.example.mindbalancecenter.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import org.example.mindbalancecenter.bo.BOFactory;
+import org.example.mindbalancecenter.bo.ProgramRegistrationBO;
+import org.example.mindbalancecenter.dto.PatientDto;
+import org.example.mindbalancecenter.dto.ProgramRegistrationDto;
+import org.example.mindbalancecenter.dto.TherapyProgramDto;
 
-public class ProgramRegistrationPageController {
+import java.math.BigDecimal;
+import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ProgramRegistrationPageController implements Initializable{
+    ProgramRegistrationBO programRegistrationBO = (ProgramRegistrationBO) BOFactory.getInstance().getBO(BOFactory.BOType.PROGRAM_REGISTRATION);
+    @FXML
+    private AnchorPane anchorPane;
+
     @FXML
     private ImageView btnAdd1;
 
@@ -18,10 +41,10 @@ public class ProgramRegistrationPageController {
     private ImageView btnSetting2;
 
     @FXML
-    private ComboBox<?> cmbProgramId;
+    private ComboBox<String> cmbProgramId;
 
     @FXML
-    private ComboBox<?> cmdPatientd;
+    private ComboBox<String> cmdPatientd;
 
     @FXML
     private TableColumn<?, ?> colCost;
@@ -76,4 +99,92 @@ public class ProgramRegistrationPageController {
 
     @FXML
     private TextField txtTherapyistName;
+
+    @FXML
+    void btnAddNewPatient(MouseEvent event) {
+
+    }
+
+    @FXML
+    void cmbPatient(ActionEvent event) {
+       if (cmdPatientd.getValue() != null) {
+            String id = cmdPatientd.getValue();
+            try {
+                PatientDto patient = programRegistrationBO.searchPatientById(id);
+                txtPatientName.setText(patient.getName());
+                txtAge.setText(String.valueOf(patient.getAge()));
+                txtPhoneNumber.setText(patient.getPhoneNumber());
+                txtGender.setText(patient.getGender());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    @FXML
+    void cmbProgram(ActionEvent event) {
+        if (cmbProgramId.getValue() != null) {
+            String id = cmbProgramId.getValue();
+            try {
+                TherapyProgramDto program = programRegistrationBO.searchProgramById(id);
+                txtProgramName.setText(program.getName());
+                txtCost.setText(program.getCost().stripTrailingZeros().toPlainString());
+                txtDuration.setText(program.getDuration());
+                txtTherapyistName.setText(program.getTherapistName());
+                txtSpecialization.setText(program.getSpetialization());
+                txtExperienceYear.setText(program.getExperienceYear());
+
+                BigDecimal advanceAmount = program.getCost().multiply(BigDecimal.valueOf(0.10));
+                txtAdvanceAmount.setText(advanceAmount.stripTrailingZeros().toPlainString());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    void btnRegister(ActionEvent event) throws Exception {
+        Date date = Date.valueOf(LocalDate.now());
+        boolean isRegistered = programRegistrationBO.register(
+                new ProgramRegistrationDto(
+                        txtID.getText(),
+                        date,
+                        cmdPatientd.getValue(),
+                        cmbProgramId.getValue(),
+                        Integer.valueOf(txtAdvanceAmount.getText())
+                )
+        );
+        if (isRegistered){
+            new Alert(Alert.AlertType.CONFIRMATION, "Program Registration Complete").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR, "Program Registration Fail").show();
+        }
+    }
+
+    void pageRefesh() {
+        try {
+            List<PatientDto> patients = programRegistrationBO.getPatients();
+            ObservableList<String> patientNames = FXCollections.observableArrayList();
+            for (PatientDto therapistDto : patients){
+                patientNames.add(therapistDto.getId());
+            }
+            cmdPatientd.setItems(patientNames);
+
+            List<TherapyProgramDto> programs = programRegistrationBO.getPrograms();
+            ObservableList<String> programNames = FXCollections.observableArrayList();
+            for (TherapyProgramDto therapistDto : programs){
+                programNames.add(therapistDto.getId());
+            }
+            cmbProgramId.setItems(programNames);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        pageRefesh();
+    }
 }

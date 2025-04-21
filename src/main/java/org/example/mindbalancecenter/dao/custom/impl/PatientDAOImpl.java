@@ -3,6 +3,7 @@ package org.example.mindbalancecenter.dao.custom.impl;
 import org.example.mindbalancecenter.config.FactoryConfiguration;
 import org.example.mindbalancecenter.dao.custom.PatientDAO;
 import org.example.mindbalancecenter.entitiy.Patient;
+import org.example.mindbalancecenter.entitiy.Therapist;
 import org.example.mindbalancecenter.exeception.DuplicateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -91,7 +92,23 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public Patient search(String id) throws Exception, ClassNotFoundException {
-        return null;
+    public Patient search(String id) throws ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        return session.get(Patient.class, id);
+    }
+
+    @Override
+    public Patient searchByName(String name) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        String sql = String.format("SELECT * FROM patient WHERE name = '%s'",name); //String sql = String.format("INSERT INTO product(name, cost) VALUES('%s',%s);",product.getName(), product.getCost());
+        List<Patient> list = session.createNativeQuery(sql, Patient.class).list();
+
+        if (!list.isEmpty()) {
+            session.close();
+            return list.getFirst();
+        } else {
+            session.close();
+            return null;
+        }
     }
 }

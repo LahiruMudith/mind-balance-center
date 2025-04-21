@@ -17,5 +17,4 @@ public class ProgramRegistrationDto {
     private Date date;
     private String patientId;
     private String programId;
-    private int paymentAmount;
 }

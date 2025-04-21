@@ -22,15 +22,8 @@ public class TherapyProgramDto{
     private String description;
     private String therapistName;
 
-    private String spetialization;
-    private String experienceYear;
+//    private String spetialization;
+//    private String experienceYear;
 
-    public TherapyProgramDto(String id, String name, String duration, BigDecimal cost, String description, String therapistName) {
-        this.id = id;
-        this.name = name;
-        this.duration = duration;
-        this.cost = cost;
-        this.description = description;
-        this.therapistName = therapistName;
-    }
+    
 }

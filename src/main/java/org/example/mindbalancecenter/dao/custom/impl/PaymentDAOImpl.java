@@ -1,0 +1,46 @@
+package org.example.mindbalancecenter.dao.custom.impl;
+
+import org.example.mindbalancecenter.dao.custom.PaymentDAO;
+import org.example.mindbalancecenter.entitiy.Payment;
+import org.hibernate.Session;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public class PaymentDAOImpl implements PaymentDAO {
+    @Override
+    public boolean saveWithProgramRegistration(Session session, Payment payment) {
+        try{
+            session.save(payment);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public List<Payment> getAll() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(Payment entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Payment entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public Payment search(String id) throws Exception, ClassNotFoundException {
+        return null;
+    }
+}

@@ -1,9 +1,7 @@
 package org.example.mindbalancecenter.dao;
 
 import org.example.mindbalancecenter.bo.SuperBO;
-import org.example.mindbalancecenter.dao.custom.impl.PatientDAOImpl;
-import org.example.mindbalancecenter.dao.custom.impl.TherapistDAOImpl;
-import org.example.mindbalancecenter.dao.custom.impl.TherapyProgramDAOImpl;
+import org.example.mindbalancecenter.dao.custom.impl.*;
 
 public class DAOFactory {
     public static DAOFactory daoFactory;
@@ -12,7 +10,7 @@ public class DAOFactory {
         return daoFactory==null ? new DAOFactory() : daoFactory;
     }
     public enum DAOType{
-        PATIENT, THERAPIST, THERAPY_PROGRAM
+    PATIENT, THERAPIST, THERAPY_PROGRAM, PROGRAM_REGISTRATION, PAYMENT
     }
     public SuperDAO getDAO(DAOType daoType){
         switch (daoType){
@@ -24,6 +22,12 @@ public class DAOFactory {
             }
             case THERAPY_PROGRAM -> {
                 return new TherapyProgramDAOImpl();
+            }
+            case PROGRAM_REGISTRATION -> {
+                return new ProgramRegistrationDAOImpl();
+            }
+            case PAYMENT -> {
+                return new PaymentDAOImpl();
             }
             default -> {
                 return null;
