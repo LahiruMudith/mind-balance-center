@@ -40,6 +40,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
 
         for (TherapyProgram therapyProgram : therapyProgramList){
             Therapist therapist = therapyProgram.getTherapistId();
+            int cost = BigDecimal.valueOf(therapyProgram.getCost());
 
             therapyProgramDto.add(new TherapyProgramDto(
                     therapyProgram.getId(),

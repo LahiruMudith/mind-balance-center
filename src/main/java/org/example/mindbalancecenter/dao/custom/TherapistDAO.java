@@ -5,4 +5,5 @@ import org.example.mindbalancecenter.dao.SuperDAO;
 import org.example.mindbalancecenter.entitiy.Therapist;
 
 public interface TherapistDAO extends CrudDAO<Therapist> {
+    Therapist searchByName(String name) throws Exception, ClassNotFoundException;
 }

@@ -12,7 +12,7 @@ public class BookSessionPageController {
     private ImageView btnSetting2;
 
     @FXML
-    private ComboBox<?> cmbPatientId;
+    private ComboBox<String> cmbPatientId;
 
     @FXML
     private TableColumn<?, ?> colAmount;

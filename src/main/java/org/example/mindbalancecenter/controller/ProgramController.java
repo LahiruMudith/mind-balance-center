@@ -11,10 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.example.mindbalancecenter.bo.BOFactory;
 import org.example.mindbalancecenter.bo.TherapyProgramBO;
-import org.example.mindbalancecenter.dto.PatientDto;
 import org.example.mindbalancecenter.dto.TherapistDto;
 import org.example.mindbalancecenter.dto.TherapyProgramDto;
-import org.example.mindbalancecenter.dto.tm.PatientTM;
 import org.example.mindbalancecenter.dto.tm.TherapyProgramTM;
 
 import java.math.BigDecimal;
@@ -38,7 +36,7 @@ public class ProgramController implements Initializable {
     private ImageView btnUpdate;
 
     @FXML
-    private ComboBox<TherapistDto> cmbTherapist;
+    private ComboBox<String> cmbTherapist;
 
     @FXML
     private TableColumn<TherapyProgramTM, BigDecimal> colCost;
@@ -78,7 +76,19 @@ public class ProgramController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-
+        try {
+            boolean b = therapyProgramBO.delete(txtID.getText());
+            if (b){
+                new Alert(Alert.AlertType.CONFIRMATION, "Therapy Program Delete Successfully").show();
+                refeshPage();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Failed to Delete Therapy Program").show();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -91,7 +101,7 @@ public class ProgramController implements Initializable {
                             txtProgramDuration.getText(),
                             cost,
                             txtDescription.getText(),
-                            cmbTherapist.getPromptText()
+                            cmbTherapist.getValue()
             ));
             if (b){
                 new Alert(Alert.AlertType.CONFIRMATION, "Therapy Program Added Successfully").show();
@@ -106,7 +116,16 @@ public class ProgramController implements Initializable {
 
     @FXML
     void tblTherapyProgram(MouseEvent event) {
-
+        TherapyProgramTM selectedItem = tblProgram.getSelectionModel().getSelectedItem();
+        if (selectedItem != null){
+            txtID.setText(selectedItem.getId());
+            txtName.setText(selectedItem.getName());
+            txtDescription.setText(selectedItem.getDescription());
+            txtProgramDuration.setText(selectedItem.getDuration());
+            txtCost.setText(String.valueOf(selectedItem.getCost().intValue()));
+            cmbTherapist.setValue(selectedItem.getTherapistName());
+            System.out.println(selectedItem.getTherapistName());
+        }
     }
 
     @FXML
@@ -116,7 +135,25 @@ public class ProgramController implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
-
+        BigDecimal cost = BigDecimal.valueOf(Long.parseLong(txtCost.getText()));
+        try {
+            boolean b = therapyProgramBO.update(new TherapyProgramDto(
+                    txtID.getText(),
+                    txtName.getText(),
+                    txtProgramDuration.getText(),
+                    cost,
+                    txtDescription.getText(),
+                    cmbTherapist.getValue()
+            ));
+            if (b){
+                new Alert(Alert.AlertType.CONFIRMATION, "Therapy Program Update Successfully").show();
+                refeshPage();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Failed to Delete Therapy Program").show();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     void refeshPage(){
@@ -142,6 +179,19 @@ public class ProgramController implements Initializable {
             throw new RuntimeException(e);
         }
 
+//        addd Therapist to combo box
+        try {
+            List<TherapistDto> all = therapyProgramBO.getTherapist();
+            ObservableList<String> therapistName = FXCollections.observableArrayList();
+            for (TherapistDto therapistDto : all){
+                therapistName.add(therapistDto.getName());
+            }
+            cmbTherapist.setItems(therapistName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

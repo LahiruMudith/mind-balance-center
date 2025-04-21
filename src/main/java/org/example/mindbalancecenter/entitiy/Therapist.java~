@@ -22,14 +22,14 @@ public class Therapist {
     private String phoneNumber;
     @Column(name = "experience_year" ,nullable = false)
     private String experienceYear;
-    @Column(name ="assigned_program" ,nullable = false)
+    @Column(name ="assigned_program")
     private String assignedProgram;
     @Column(nullable = false)
     private String specialization;
     @OneToMany(mappedBy = "therapistId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TherapySession> therapySessions;
-    @OneToOne(mappedBy = "therapistId", cascade = CascadeType.ALL)
-    private TherapyProgram therapyProgram;
+    @OneToMany(mappedBy = "therapistId", cascade = CascadeType.ALL)
+    private List<TherapyProgram> therapyProgram;
 
     public Therapist(String id, String name, String phoneNumber, String experienceYear, String assignedProgram, String specialization) {
         this.id = id;

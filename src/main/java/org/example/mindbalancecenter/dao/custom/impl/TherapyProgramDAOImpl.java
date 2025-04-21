@@ -1,9 +1,7 @@
 package org.example.mindbalancecenter.dao.custom.impl;
 
 import org.example.mindbalancecenter.config.FactoryConfiguration;
-import org.example.mindbalancecenter.dao.custom.TherapistDAO;
 import org.example.mindbalancecenter.dao.custom.TherapyProgramDAO;
-import org.example.mindbalancecenter.entitiy.Patient;
 import org.example.mindbalancecenter.entitiy.Therapist;
 import org.example.mindbalancecenter.entitiy.TherapyProgram;
 import org.hibernate.Session;
@@ -41,16 +39,48 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
 
     @Override
     public boolean update(TherapyProgram entity) throws SQLException, ClassNotFoundException {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.merge(entity);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (session != null){
+                session.close();
+            }
+        }
     }
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            TherapyProgram therapyProgram = session.get(TherapyProgram.class, id);
+            session.remove(therapyProgram);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (session != null){
+                session.close();
+            }
+        }
     }
 
     @Override
     public TherapyProgram search(String id) throws Exception, ClassNotFoundException {
-        return null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        return session.get(TherapyProgram.class, id);
     }
 }

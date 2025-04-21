@@ -6,6 +6,7 @@ import org.example.mindbalancecenter.entitiy.Therapist;
 import org.example.mindbalancecenter.entitiy.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -78,5 +79,20 @@ public class TherapistDAOImpl implements TherapistDAO {
     public Therapist search(String id) throws Exception, ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         return session.get(Therapist.class, id);
+    }
+
+    @Override
+    public Therapist searchByName(String name) throws Exception, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        String sql = String.format("SELECT * FROM therapist WHERE name = '%s'",name); //String sql = String.format("INSERT INTO product(name, cost) VALUES('%s',%s);",product.getName(), product.getCost());
+        List<Therapist> list = session.createNativeQuery(sql, Therapist.class).list();
+
+        if (!list.isEmpty()) {
+            session.close();
+            return list.getFirst();
+        } else {
+            session.close();
+            return null;
+        }
     }
 }

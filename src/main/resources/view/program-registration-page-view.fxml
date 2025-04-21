@@ -20,7 +20,7 @@
          <graphic>
             <ImageView fx:id="btnSetting2" fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../assets/icons/CashinHand.png" />
+                  <Image url="@../assets/icons/CashinHand.png" />
                </image>
             </ImageView>
          </graphic>

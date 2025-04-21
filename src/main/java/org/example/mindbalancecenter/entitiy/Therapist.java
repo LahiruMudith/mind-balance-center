@@ -28,8 +28,8 @@ public class Therapist {
     private String specialization;
     @OneToMany(mappedBy = "therapistId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TherapySession> therapySessions;
-    @OneToOne(mappedBy = "therapistId", cascade = CascadeType.ALL)
-    private TherapyProgram therapyProgram;
+    @OneToMany(mappedBy = "therapistId", fetch = FetchType.LAZY)
+    private List<TherapyProgram> therapyProgram;
 
     public Therapist(String id, String name, String phoneNumber, String experienceYear, String assignedProgram, String specialization) {
         this.id = id;
