@@ -3,14 +3,14 @@ package org.example.mindbalancecenter.dao.custom.impl;
 import org.example.mindbalancecenter.config.FactoryConfiguration;
 import org.example.mindbalancecenter.dao.custom.PatientDAO;
 import org.example.mindbalancecenter.entitiy.Patient;
-import org.example.mindbalancecenter.entitiy.Therapist;
 import org.example.mindbalancecenter.exeception.DuplicateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PatientDAOImpl implements PatientDAO {
     @Override
@@ -92,9 +92,37 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public Patient search(String id) throws ClassNotFoundException {
+    public Optional<Patient> search(String id) throws ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
-        return session.get(Patient.class, id);
+        Patient patient = session.get(Patient.class, id);
+        return Optional.ofNullable(patient);
+    }
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            // HQL query to get the last inserted patient ID (ordered descending)
+            Query<String> query = session.createQuery("SELECT p.patient_id FROM patient p ORDER BY p.id DESC", String.class);
+            query.setMaxResults(1);
+            String lastId = query.uniqueResult();
+
+            transaction.commit();
+            session.close();
+
+            if (lastId != null) {
+                int lastNum = Integer.parseInt(lastId.replace("P", ""));
+                int nextNum = lastNum + 1;
+                return String.format("P%03d", nextNum); // Format: P001, P002, ...
+            } else {
+                return "P001";
+            }
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+            throw new RuntimeException("no patient ID", e);
+        }
     }
 
     @Override

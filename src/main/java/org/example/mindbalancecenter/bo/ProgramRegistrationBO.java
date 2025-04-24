@@ -2,8 +2,10 @@ package org.example.mindbalancecenter.bo;
 
 import org.example.mindbalancecenter.dto.PatientDto;
 import org.example.mindbalancecenter.dto.ProgramRegistrationDto;
+import org.example.mindbalancecenter.dto.ProgramRegistrationTblDto;
 import org.example.mindbalancecenter.dto.TherapyProgramDto;
 import org.example.mindbalancecenter.entitiy.Patient;
+import org.example.mindbalancecenter.entitiy.ProgramRegistration;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -18,4 +20,6 @@ public interface ProgramRegistrationBO extends SuperBO{
     TherapyProgramDto searchProgramById(String id) throws Exception;
 
     boolean register(ProgramRegistrationDto programRegistrationDto) throws Exception;
+
+    List<ProgramRegistrationTblDto> getTblData(String id);
 }

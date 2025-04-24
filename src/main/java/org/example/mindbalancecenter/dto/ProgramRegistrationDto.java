@@ -18,4 +18,6 @@ public class ProgramRegistrationDto {
     private String patientId;
     private String programId;
     private int paymentAmount;
+
+//    private
 }

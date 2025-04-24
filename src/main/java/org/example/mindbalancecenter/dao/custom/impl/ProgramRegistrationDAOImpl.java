@@ -1,11 +1,13 @@
 package org.example.mindbalancecenter.dao.custom.impl;
 
+import org.example.mindbalancecenter.config.FactoryConfiguration;
 import org.example.mindbalancecenter.dao.custom.ProgramRegistrationDAO;
 import org.example.mindbalancecenter.entitiy.ProgramRegistration;
 import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class ProgramRegistrationDAOImpl implements ProgramRegistrationDAO {
     @Override
@@ -29,8 +31,13 @@ public class ProgramRegistrationDAOImpl implements ProgramRegistrationDAO {
     }
 
     @Override
-    public ProgramRegistration search(String id) throws Exception, ClassNotFoundException {
-        return null;
+    public Optional<ProgramRegistration> search(String id) throws Exception, ClassNotFoundException {
+        return Optional.empty();
+    }
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return "";
     }
 
     @Override
@@ -42,5 +49,12 @@ public class ProgramRegistrationDAOImpl implements ProgramRegistrationDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<ProgramRegistration> getPatientsData(String id) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        String sql = String.format("SELECT * FROM program_registration WHERE patient_id = '%s'",id);
+        return session.createNativeQuery(sql, ProgramRegistration.class).list();
     }
 }

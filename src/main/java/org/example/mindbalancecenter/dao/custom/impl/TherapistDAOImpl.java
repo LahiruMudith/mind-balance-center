@@ -3,13 +3,12 @@ package org.example.mindbalancecenter.dao.custom.impl;
 import org.example.mindbalancecenter.config.FactoryConfiguration;
 import org.example.mindbalancecenter.dao.custom.TherapistDAO;
 import org.example.mindbalancecenter.entitiy.Therapist;
-import org.example.mindbalancecenter.entitiy.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class TherapistDAOImpl implements TherapistDAO {
     @Override
@@ -76,9 +75,15 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
-    public Therapist search(String id) throws Exception, ClassNotFoundException {
+    public Optional<Therapist> search(String id) throws Exception, ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
-        return session.get(Therapist.class, id);
+        Therapist therapist = session.get(Therapist.class, id);
+        return Optional.ofNullable(therapist);
+    }
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return "";
     }
 
     @Override

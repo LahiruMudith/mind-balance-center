@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -13,12 +14,16 @@ import org.example.mindbalancecenter.bo.BOFactory;
 import org.example.mindbalancecenter.bo.ProgramRegistrationBO;
 import org.example.mindbalancecenter.dto.PatientDto;
 import org.example.mindbalancecenter.dto.ProgramRegistrationDto;
+import org.example.mindbalancecenter.dto.ProgramRegistrationTblDto;
 import org.example.mindbalancecenter.dto.TherapyProgramDto;
+import org.example.mindbalancecenter.dto.tm.PatientTM;
+import org.example.mindbalancecenter.dto.tm.ProgramRegistrationTblTM;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Struct;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -47,22 +52,22 @@ public class ProgramRegistrationPageController implements Initializable{
     private ComboBox<String> cmdPatientd;
 
     @FXML
-    private TableColumn<?, ?> colCost;
+    private TableColumn<ProgramRegistrationTblTM, BigDecimal> colCost;
 
     @FXML
-    private TableColumn<?, ?> colDuration;
+    private TableColumn<ProgramRegistrationTblTM, String> colDuration;
 
     @FXML
-    private TableColumn<?, ?> colLastSessionDate;
+    private TableColumn<ProgramRegistrationTblTM, Date> colLastSessionDate;
 
     @FXML
-    private TableColumn<?, ?> colProgramName;
+    private TableColumn<ProgramRegistrationTblTM, String> colProgramName;
 
     @FXML
-    private TableColumn<?, ?> colTherapyistName;
+    private TableColumn<ProgramRegistrationTblTM, String> colTherapyistName;
 
     @FXML
-    private TableView<?> tblPatient;
+    private TableView<ProgramRegistrationTblTM> tblPatient;
 
     @FXML
     private TextField txtAdvanceAmount;
@@ -107,8 +112,8 @@ public class ProgramRegistrationPageController implements Initializable{
 
     @FXML
     void cmbPatient(ActionEvent event) {
-       if (cmdPatientd.getValue() != null) {
-            String id = cmdPatientd.getValue();
+        String id = cmdPatientd.getValue();
+        if (cmdPatientd.getValue() != null) {
             try {
                 PatientDto patient = programRegistrationBO.searchPatientById(id);
                 txtPatientName.setText(patient.getName());
@@ -118,7 +123,22 @@ public class ProgramRegistrationPageController implements Initializable{
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+       }
+
+        List<ProgramRegistrationTblDto> tblData = programRegistrationBO.getTblData(id);
+        ObservableList<ProgramRegistrationTblTM> tblTMS = FXCollections.observableArrayList();
+        for (ProgramRegistrationTblDto programTMS : tblData){
+            ProgramRegistrationTblTM patientTM = new ProgramRegistrationTblTM(
+                    programTMS.getProgramName(),
+                    programTMS.getDuration(),
+                    programTMS.getCost(),
+                    programTMS.getTherapistName(),
+                    programTMS.getSessionDate()
+            );
+            tblTMS.add(patientTM);
         }
+        tblPatient.setItems(tblTMS);
+
     }
     @FXML
     void cmbProgram(ActionEvent event) {
@@ -185,6 +205,12 @@ public class ProgramRegistrationPageController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colProgramName.setCellValueFactory(new PropertyValueFactory<>("programName"));
+        colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        colCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        colTherapyistName.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
+        colLastSessionDate.setCellValueFactory(new PropertyValueFactory<>("sessionDate"));
+
         pageRefesh();
     }
 }

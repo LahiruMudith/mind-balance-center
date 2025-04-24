@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
@@ -78,9 +79,15 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     }
 
     @Override
-    public TherapyProgram search(String id) throws Exception, ClassNotFoundException {
+    public Optional<TherapyProgram> search(String id) throws Exception, ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
-        return session.get(TherapyProgram.class, id);
+        TherapyProgram therapyProgram = session.get(TherapyProgram.class, id);
+        return Optional.ofNullable(therapyProgram);
+    }
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return "";
     }
 
     @Override

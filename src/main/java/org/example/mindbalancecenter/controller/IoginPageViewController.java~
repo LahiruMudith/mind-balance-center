@@ -30,7 +30,6 @@ public class IoginPageViewController implements Initializable {
     @FXML
     void btnLogin(ActionEvent event) {
         if (true){
-            System.out.println(username);
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/home-page-view.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());

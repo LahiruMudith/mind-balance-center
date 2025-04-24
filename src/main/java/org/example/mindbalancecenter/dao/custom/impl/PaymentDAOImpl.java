@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class PaymentDAOImpl implements PaymentDAO {
     @Override
@@ -40,7 +41,12 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public Payment search(String id) throws Exception, ClassNotFoundException {
-        return null;
+    public Optional<Payment> search(String id) throws Exception, ClassNotFoundException {
+        return Optional.empty();
+    }
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return "";
     }
 }
