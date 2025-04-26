@@ -6,7 +6,6 @@ import org.example.mindbalancecenter.entitiy.Patient;
 import org.example.mindbalancecenter.exeception.DuplicateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -101,28 +100,17 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public String getNextId() throws SQLException, ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+        String lastId = null;
+
         try {
-            // HQL query to get the last inserted patient ID (ordered descending)
-            Query<String> query = session.createQuery("SELECT p.patient_id FROM patient p ORDER BY p.id DESC", String.class);
-            query.setMaxResults(1);
-            String lastId = query.uniqueResult();
-
-            transaction.commit();
+            lastId = session
+                    .createQuery("SELECT p.id FROM Patient p ORDER BY p.id DESC", String.class)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } finally {
             session.close();
-
-            if (lastId != null) {
-                int lastNum = Integer.parseInt(lastId.replace("P", ""));
-                int nextNum = lastNum + 1;
-                return String.format("P%03d", nextNum); // Format: P001, P002, ...
-            } else {
-                return "P001";
-            }
-        } catch (Exception e) {
-            transaction.rollback();
-            session.close();
-            throw new RuntimeException("no patient ID", e);
         }
+        return lastId;
     }
 
     @Override

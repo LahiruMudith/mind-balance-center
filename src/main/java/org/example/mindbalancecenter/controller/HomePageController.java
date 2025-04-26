@@ -117,7 +117,7 @@ public class HomePageController implements Initializable {
             load.prefHeightProperty().bind(windowPane.heightProperty());
             windowPane.getChildren().add(load);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Cannot Load Page").show();
             e.printStackTrace();
         }
     }

@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import org.example.mindbalancecenter.bo.BOFactory;
 import org.example.mindbalancecenter.bo.TherapistBO;
 import org.example.mindbalancecenter.dto.TherapistDto;
-import org.example.mindbalancecenter.dto.tm.PatientTM;
 import org.example.mindbalancecenter.dto.tm.TherapistTM;
 
 import java.net.URL;
@@ -82,7 +81,7 @@ public class TherapistPageController implements Initializable {
         String assignedProgram = cmbAssignedProgram.getValue();
         String specialization = txtSpecialization.getText();
 
-        TherapistTM therapistTM = new TherapistTM(
+        TherapistDto therapistDto = new TherapistDto(
                 id,
                 name,
                 phoneNumber,
@@ -90,7 +89,7 @@ public class TherapistPageController implements Initializable {
                 assignedProgram,
                 specialization
         );
-        boolean b = therapistBO.save(therapistTM);
+        boolean b = therapistBO.save(therapistDto);
 
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION, "Therapist Added Successfully").show();
@@ -103,19 +102,15 @@ public class TherapistPageController implements Initializable {
     @FXML
     void btnDelete(ActionEvent event) {
         String id = txtID.getText();
-        boolean b = false;
         try {
-            b = therapistBO.delete(id);
+            boolean b = therapistBO.delete(id);
             if (b){
                 new Alert(Alert.AlertType.CONFIRMATION, "Therapist Delete Successfully").show();
                 pageRefresh();
             }else {
                 new Alert(Alert.AlertType.ERROR, "Failed to Delete Therapist").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to Delete Therapist").show();
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to Delete Therapist").show();
             throw new RuntimeException(e);
         }
@@ -174,6 +169,7 @@ public class TherapistPageController implements Initializable {
     }
 
     void pageRefresh(){
+        clearFields();
         try {
             List<TherapistDto> all = therapistBO.getAll();
             ObservableList<TherapistTM> patientTMS = FXCollections.observableArrayList();
@@ -190,10 +186,30 @@ public class TherapistPageController implements Initializable {
             }
             tblTherapist.setItems(patientTMS);
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        }
+
+        //Generate new ID
+        try {
+            String newId = therapistBO.getNewId();
+            txtID.setText(newId);
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+    void clearFields(){
+        txtID.clear();
+        txtName.clear();
+        txtPhoneNumber.clear();
+        txtExperienceYear.clear();
+        txtSpecialization.clear();
+        cmbAssignedProgram.setValue(null);
+    }
+
+    public void cmbAssignedProgram(ActionEvent actionEvent) {
+        new Alert(Alert.AlertType.INFORMATION, "This Feature is not available yet").show();
+    }
 }
+
+

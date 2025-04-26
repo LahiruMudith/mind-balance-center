@@ -13,9 +13,9 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="726.0" prefWidth="907.0" style="-fx-background-color: #E7E6EA; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mindbalancecenter.controller.ProgramRegistrationPageController">
    <children>
-      <TextField fx:id="txtID" focusTraversable="false" layoutX="77.0" layoutY="23.0" prefHeight="47.0" prefWidth="215.0" promptText="Program Registration ID" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtPatientName" focusTraversable="false" layoutX="77.0" layoutY="113.0" prefHeight="47.0" prefWidth="245.0" promptText="Patient Name" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtPhoneNumber" focusTraversable="false" layoutX="566.0" layoutY="113.0" prefHeight="47.0" prefWidth="201.0" promptText="Phone Number" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtID" editable="false" focusTraversable="false" layoutX="77.0" layoutY="23.0" prefHeight="47.0" prefWidth="215.0" promptText="Program Registration ID" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtPatientName" editable="false" focusTraversable="false" layoutX="77.0" layoutY="113.0" prefHeight="47.0" prefWidth="245.0" promptText="Patient Name" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtPhoneNumber" editable="false" focusTraversable="false" layoutX="566.0" layoutY="113.0" prefHeight="47.0" prefWidth="201.0" promptText="Phone Number" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
       <Button fx:id="btnRegister" layoutX="400.0" layoutY="420.0" mnemonicParsing="false" onAction="#btnRegister" prefHeight="50.0" prefWidth="276.0" style="-fx-background-color: white; -fx-background-radius: 30;" text="Pay &amp; Registar" textFill="#013d35">
          <graphic>
             <ImageView fx:id="btnSetting2" fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
@@ -53,15 +53,15 @@
          </cursor>
       </Button>
       <ComboBox fx:id="cmdPatientd" layoutX="350.0" layoutY="23.0" onAction="#cmbPatient" onMouseClicked="#cmbPatient" prefHeight="46.0" prefWidth="178.0" promptText="Select Patient ID" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtAge" focusTraversable="false" layoutX="359.0" layoutY="113.0" prefHeight="47.0" prefWidth="161.0" promptText="Age" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtGender" focusTraversable="false" layoutX="77.0" layoutY="177.0" prefHeight="47.0" prefWidth="134.0" promptText="Gender" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtProgramName" focusTraversable="false" layoutX="77.0" layoutY="250.0" prefHeight="47.0" prefWidth="245.0" promptText="Program Name" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtCost" focusTraversable="false" layoutX="350.0" layoutY="250.0" prefHeight="47.0" prefWidth="151.0" promptText="Cost" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtDuration" focusTraversable="false" layoutX="528.0" layoutY="250.0" prefHeight="47.0" prefWidth="161.0" promptText="Duration" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtTherapyistName" focusTraversable="false" layoutX="77.0" layoutY="310.0" prefHeight="47.0" prefWidth="264.0" promptText="Therapyist Name" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtSpecialization" focusTraversable="false" layoutX="372.0" layoutY="310.0" prefHeight="47.0" prefWidth="245.0" promptText="Specialization" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtExperienceYear" focusTraversable="false" layoutX="650.0" layoutY="310.0" prefHeight="47.0" prefWidth="134.0" promptText="Experience Year" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
-      <TextField fx:id="txtAdvanceAmount" focusTraversable="false" layoutX="203.0" layoutY="421.0" prefHeight="47.0" prefWidth="171.0" promptText="Advance Amount" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtAge" editable="false" focusTraversable="false" layoutX="359.0" layoutY="113.0" prefHeight="47.0" prefWidth="161.0" promptText="Age" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtGender" editable="false" focusTraversable="false" layoutX="77.0" layoutY="177.0" prefHeight="47.0" prefWidth="134.0" promptText="Gender" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtProgramName" editable="false" focusTraversable="false" layoutX="77.0" layoutY="250.0" prefHeight="47.0" prefWidth="245.0" promptText="Program Name" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtCost" editable="false" focusTraversable="false" layoutX="350.0" layoutY="250.0" prefHeight="47.0" prefWidth="151.0" promptText="Cost" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtDuration" editable="false" focusTraversable="false" layoutX="528.0" layoutY="250.0" prefHeight="47.0" prefWidth="161.0" promptText="Duration" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtTherapyistName" editable="false" focusTraversable="false" layoutX="77.0" layoutY="310.0" prefHeight="47.0" prefWidth="264.0" promptText="Therapyist Name" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtSpecialization" editable="false" focusTraversable="false" layoutX="372.0" layoutY="310.0" prefHeight="47.0" prefWidth="245.0" promptText="Specialization" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtExperienceYear" editable="false" focusTraversable="false" layoutX="650.0" layoutY="310.0" prefHeight="47.0" prefWidth="134.0" promptText="Experience Year" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtAdvanceAmount" editable="false" focusTraversable="false" layoutX="203.0" layoutY="421.0" prefHeight="47.0" prefWidth="171.0" promptText="Advance Amount" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
       <ComboBox fx:id="cmbProgramId" layoutX="617.0" layoutY="23.0" onAction="#cmbProgram" prefHeight="46.0" prefWidth="215.0" promptText="Select Program ID" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
    </children>
 </AnchorPane>

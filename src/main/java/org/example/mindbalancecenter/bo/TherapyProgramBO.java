@@ -16,4 +16,6 @@ public interface TherapyProgramBO extends SuperBO{
     boolean update(TherapyProgramDto therapyProgramDto) throws Exception;
 
     List<TherapistDto> getTherapist() throws SQLException, ClassNotFoundException;
+
+    String getNewId() throws SQLException, ClassNotFoundException;
 }

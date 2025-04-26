@@ -37,7 +37,18 @@ public class ProgramRegistrationDAOImpl implements ProgramRegistrationDAO {
 
     @Override
     public String getNextId() throws SQLException, ClassNotFoundException {
-        return "";
+        Session session = FactoryConfiguration.getInstance().getSession();
+        String lastId = null;
+
+        try {
+            lastId = session
+                    .createQuery("SELECT p.id FROM ProgramRegistration p ORDER BY p.id DESC", String.class)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } finally {
+            session.close();
+        }
+        return lastId;
     }
 
     @Override

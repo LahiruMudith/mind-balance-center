@@ -102,6 +102,7 @@ public class PatientPageController implements Initializable {
     }
 
     void refeshPage(){
+        clearFields();
 //        load patient data to table
         try {
             List<PatientDto> allPatient = patientBO.getAllPatient();
@@ -120,11 +121,26 @@ public class PatientPageController implements Initializable {
             }
             tblPatient.setItems(patientTMS);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            String newId = patientBO.getNewId();
+            txtID.setText(newId);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void clearFields(){
+        txtID.clear();
+        txtName.clear();
+        txtPhoneNumber.clear();
+        txtAddress.clear();
+        txtBirthYear.clear();
+        gender.selectToggle(null);
+
     }
 
     @FXML

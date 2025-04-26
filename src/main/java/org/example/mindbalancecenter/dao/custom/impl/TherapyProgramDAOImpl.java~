@@ -92,7 +92,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
 
         try {
             lastId = session
-                    .createQuery("SELECT pr.id FROM TherapyProgram pr ORDER BY pr.id DESC", String.class)
+                    .createQuery("SELECT pr.program_id FROM therapy_program pr ORDER BY pr.program_id DESC", String.class)
                     .setMaxResults(1)
                     .uniqueResult();
         } finally {

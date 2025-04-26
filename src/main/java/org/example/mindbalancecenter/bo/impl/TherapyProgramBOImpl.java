@@ -88,4 +88,16 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         }
         return therapistDtos;
     }
+
+    @Override
+    public String getNewId() throws SQLException, ClassNotFoundException {
+        String lastId = therapyProgramDAO.getNextId();
+
+        if (lastId != null) {
+            int newId = Integer.parseInt(lastId.substring(2)) + 1;
+            return String.format("PR%03d", newId);
+        } else {
+            return "PR001";
+        }
+    }
 }

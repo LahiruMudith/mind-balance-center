@@ -13,7 +13,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login-page-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/home-page-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 832);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);

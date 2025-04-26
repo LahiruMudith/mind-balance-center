@@ -40,7 +40,6 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
 
         for (TherapyProgram therapyProgram : therapyProgramList){
             Therapist therapist = therapyProgram.getTherapistId();
-            int cost = BigDecimal.valueOf(therapyProgram.getCost());
 
             therapyProgramDto.add(new TherapyProgramDto(
                     therapyProgram.getId(),
@@ -88,5 +87,17 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
             ));
         }
         return therapistDtos;
+    }
+
+    @Override
+    public String getNewId() throws SQLException, ClassNotFoundException {
+        String lastId = therapyProgramDAO.getNextId();
+
+        if (lastId != null) {
+            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            return String.format("PR%03d", newId);
+        } else {
+            return "PR001";
+        }
     }
 }

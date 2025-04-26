@@ -64,4 +64,16 @@ public class PatientBOImpl implements PatientBO {
         System.out.println(patientDtos);
         return patientDtos;
     }
+
+    @Override
+    public String getNewId() throws SQLException, ClassNotFoundException {
+        String lastId = patientDAO.getNextId();
+
+        if (lastId != null) {
+            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            return String.format("P%03d", newId);
+        } else {
+            return "P001";
+        }
+    }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class TherapistBOImpl implements TherapistBO {
     TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST);
     @Override
-    public boolean save(TherapistTM therapistTM) throws SQLException, ClassNotFoundException {
+    public boolean save(TherapistDto therapistTM) throws SQLException, ClassNotFoundException {
         return therapistDAO.save(new Therapist(
                 therapistTM.getId(),
                 therapistTM.getName(),
@@ -58,5 +58,17 @@ public class TherapistBOImpl implements TherapistBO {
             ));
         }
         return therapistDtos;
+    }
+
+    @Override
+    public String getNewId() throws SQLException, ClassNotFoundException {
+        String lastId =  therapistDAO.getNextId();
+
+        if (lastId != null) {
+            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            return String.format("T%03d", newId);
+        } else {
+            return "T001";
+        }
     }
 }

@@ -1,5 +1,6 @@
 package org.example.mindbalancecenter.dao.custom.impl;
 
+import org.example.mindbalancecenter.config.FactoryConfiguration;
 import org.example.mindbalancecenter.dao.custom.PaymentDAO;
 import org.example.mindbalancecenter.entitiy.Payment;
 import org.hibernate.Session;
@@ -47,6 +48,17 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public String getNextId() throws SQLException, ClassNotFoundException {
-        return "";
+        Session session = FactoryConfiguration.getInstance().getSession();
+        String lastId = null;
+
+        try {
+            lastId = session
+                    .createQuery("SELECT p.id FROM Payment p ORDER BY p.id DESC", String.class)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } finally {
+            session.close();
+        }
+        return lastId;
     }
 }

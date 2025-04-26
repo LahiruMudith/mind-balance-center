@@ -156,6 +156,8 @@ public class ProgramController implements Initializable {
     }
 
     void refeshPage(){
+        //clear fields
+        clearFields();
         try {
             List<TherapyProgramDto> all = therapyProgramBO.getAll();
             ObservableList<TherapyProgramTM> therapyProgramTMS = FXCollections.observableArrayList();
@@ -191,6 +193,25 @@ public class ProgramController implements Initializable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        // Generate new ID
+        try {
+            String newId = therapyProgramBO.getNewId();
+            txtID.setText(newId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void clearFields(){
+        txtID.clear();
+        txtName.clear();
+        txtDescription.clear();
+        txtProgramDuration.clear();
+        txtCost.clear();
+        cmbTherapist.getSelectionModel().clearSelection();
     }
 
     @Override

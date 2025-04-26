@@ -16,7 +16,7 @@ import java.util.List;
 public class ProgramRegistration {
     @Id
     @Column (name = "program_registration_id")
-    private String programRegistrationId;
+    private String id;
     @Column(nullable = false)
     private Date date;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -25,7 +25,7 @@ public class ProgramRegistration {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "program_id" ,nullable = false)
     private TherapyProgram programId;;
-    @OneToOne(mappedBy = "programRegistrationId", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "programRegistrationId", cascade = CascadeType.ALL)
     private Payment payment;
 
 }

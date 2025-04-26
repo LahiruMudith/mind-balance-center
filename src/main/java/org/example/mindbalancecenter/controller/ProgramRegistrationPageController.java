@@ -201,6 +201,16 @@ public class ProgramRegistrationPageController implements Initializable{
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        //Get new ID
+        try {
+            String newId = programRegistrationBO.getNewId();
+            txtID.setText(newId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

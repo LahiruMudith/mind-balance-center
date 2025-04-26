@@ -16,7 +16,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="726.0" prefWidth="907.0" style="-fx-background-color: #E7E6EA; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mindbalancecenter.controller.PatientPageController">
    <children>
-      <TextField fx:id="txtID" focusTraversable="false" layoutX="65.0" layoutY="39.0" prefHeight="47.0" prefWidth="215.0" promptText="Enter ID" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
+      <TextField fx:id="txtID" editable="false" focusTraversable="false" layoutX="65.0" layoutY="39.0" prefHeight="47.0" prefWidth="215.0" promptText="Enter ID" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
       <TextField fx:id="txtName" focusTraversable="false" layoutX="321.0" layoutY="39.0" prefHeight="47.0" prefWidth="245.0" promptText="Enter Name" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
       <TextField fx:id="txtPhoneNumber" focusTraversable="false" layoutX="605.0" layoutY="39.0" prefHeight="47.0" prefWidth="237.0" promptText="Enter Phone Number" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />
       <TextField fx:id="txtAddress" focusTraversable="false" layoutX="77.0" layoutY="113.0" prefHeight="47.0" prefWidth="245.0" promptText="Enter Address" style="-fx-background-color: #B2E2D7; -fx-background-radius: 10;" />

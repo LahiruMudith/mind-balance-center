@@ -22,4 +22,6 @@ public interface ProgramRegistrationBO extends SuperBO{
     boolean register(ProgramRegistrationDto programRegistrationDto) throws Exception;
 
     List<ProgramRegistrationTblDto> getTblData(String id);
+
+    String getNewId() throws SQLException, ClassNotFoundException;
 }
