@@ -196,7 +196,7 @@ public class ProgramRegistrationBOImpl implements ProgramRegistrationBO {
         String lastId =  programRegistrationDAO.getNextId();
 
         if (lastId != null) {
-            int newId = Integer.parseInt(lastId.substring(1)) + 1;
+            int newId = Integer.parseInt(lastId.substring(3)) + 1;
             return String.format("PRR%03d", newId);
         } else {
             return "PRR001";
