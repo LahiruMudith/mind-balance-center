@@ -100,7 +100,7 @@ public class BookSessionPageController implements Initializable {
 
     @FXML
     void btnBookSession(ActionEvent event) {
-
+        txt
     }
 
     @FXML

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -14,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -70,7 +72,21 @@ public class HomePageController implements Initializable {
 
     @FXML
     void btnLogout(ActionEvent event) {
-        navigation("view/login-page-view.fxml");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login-page-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage1 = new Stage();
+            stage1.setScene(scene);
+            stage1.initStyle(StageStyle.TRANSPARENT);
+            stage1.setResizable(true);
+            stage1.centerOnScreen();
+
+            Stage window = (Stage) btnClose.getScene().getWindow();
+            window.close();
+            stage1.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -109,6 +125,7 @@ public class HomePageController implements Initializable {
         navigation("/view/book-session-page-view.fxml");
     }
 
+
     public void navigation(String path){
         try {
             windowPane.getChildren().clear();
@@ -140,5 +157,14 @@ public class HomePageController implements Initializable {
             txtDate.setText(date);
         });
         time_and_date_Tread.start();
+    }
+    void disableBtns(String role){
+        if (role.equals("receptionist")) {
+            txtRole.setText(role.toUpperCase());
+            btnTherapist.setDisable(true);
+            btnTherapyProgram.setDisable(true);
+        }else {
+            txtRole.setText(role.toUpperCase());
+        }
     }
 }

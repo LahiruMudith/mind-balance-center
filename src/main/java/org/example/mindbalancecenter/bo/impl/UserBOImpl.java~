@@ -1,0 +1,26 @@
+package org.example.mindbalancecenter.bo.impl;
+
+import org.example.mindbalancecenter.bo.UserBO;
+import org.example.mindbalancecenter.dao.DAOFactory;
+import org.example.mindbalancecenter.dao.custom.UserDAO;
+import org.example.mindbalancecenter.dto.UserDto;
+import org.example.mindbalancecenter.entitiy.User;
+
+import java.util.Optional;
+
+public class UserBOImpl implements UserBO {
+    UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.USER);
+    @Override
+    public UserDto checkUser(String userName) throws Exception {
+        Optional<User> search = userDAO.search(userName);
+        System.out.println(search.get().getUserName());
+        if (search.isPresent()){
+            return new UserDto(
+                    search.get().getUserName(),
+                    search.get().getPassword(),
+                    search.get().getRole()
+            );
+        }
+        return null;
+    }
+}

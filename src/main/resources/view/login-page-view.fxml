@@ -25,7 +25,7 @@
             <Font name="Poppins Bold" size="24.0" />
          </font>
       </Text>
-      <Button layoutX="819.0" layoutY="516.0" mnemonicParsing="false" onAction="#btnLogin" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: EDE4DA; -fx-background-radius: 20;" text="Login">
+      <Button fx:id="btnLogin" layoutX="819.0" layoutY="516.0" mnemonicParsing="false" onAction="#btnLogin" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: EDE4DA; -fx-background-radius: 20;" text="Login">
          <font>
             <Font name="Poppins Bold" size="18.0" />
          </font>
@@ -43,7 +43,7 @@
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../assets/icons/Close.png" />
+                  <Image url="@../assets/icons/Close.png" />
                </image>
             </ImageView>
          </graphic>
@@ -55,7 +55,7 @@
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../assets/icons/MinimizeWindow.png" />
+                  <Image url="@../assets/icons/MinimizeWindow.png" />
                </image>
             </ImageView>
          </graphic>
