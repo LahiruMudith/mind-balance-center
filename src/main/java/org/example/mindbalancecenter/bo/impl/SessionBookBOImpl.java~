@@ -147,7 +147,7 @@ public class SessionBookBOImpl implements SessionBookBO {
             }
 
             //check if program exist
-            Optional<TherapyProgram> searchProgram = therapyProgramDAO.search(therapySessionDto.getProgramId());
+            Optional<TherapyProgram> searchProgram = Optional.ofNullable(therapyProgramDAO.search(therapySessionDto.getProgramId()));
             if (searchProgram.isEmpty()){
                 transaction.rollback();
                 return false;

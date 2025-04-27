@@ -16,10 +16,15 @@ import org.example.mindbalancecenter.bo.SessionBookBO;
 import org.example.mindbalancecenter.dto.PatientDto;
 import org.example.mindbalancecenter.dto.TherapistDto;
 import org.example.mindbalancecenter.dto.TherapyProgramDto;
+import org.example.mindbalancecenter.dto.TherapySessionDto;
+import org.example.mindbalancecenter.dto.tm.TherapySessionTM;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -39,19 +44,19 @@ public class BookSessionPageController implements Initializable {
     private ComboBox<String> cmbProgramId;
 
     @FXML
-    private TableColumn<?, ?> colAmount;
+    private TableColumn<TherapySessionTM, BigDecimal> colAmount;
 
     @FXML
-    private TableColumn<?, ?> colDate;
+    private TableColumn<TherapySessionTM, Date> colDate;
 
     @FXML
-    private TableColumn<?, ?> colDeleteBtns;
+    private TableColumn<TherapySessionTM, Button> colDeleteBtns;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<TherapySessionTM, String> colId;
 
     @FXML
-    private TableColumn<?, ?> colPaymentSatus;
+    private TableColumn<TherapySessionTM, Boolean> colPaymentSatus;
 
     @FXML
     private DatePicker datepicker;
@@ -60,7 +65,7 @@ public class BookSessionPageController implements Initializable {
     private CheckBox paymentStatus;
 
     @FXML
-    private TableView<?> tblPatient;
+    private TableView<TherapySessionTM> tblPatient;
 
     @FXML
     private TextField txtDayAmount;
@@ -100,7 +105,26 @@ public class BookSessionPageController implements Initializable {
 
     @FXML
     void btnBookSession(ActionEvent event) {
-
+        boolean b = sessionBookBO.bookSession(
+                new TherapySessionDto(
+                        txtId.getText(),
+                        cmbPatientId.getValue(),
+                        txtPhoneNumber.getText(),
+                        txtDuration.getText(),
+                        Date.valueOf(datepicker.getValue()),
+                        Date.valueOf(LocalDate.now()),
+                        txtTherapystName.getText(),
+                        cmbProgramId.getValue(),
+                        new BigDecimal(txtDayAmount.getText()),
+                        new BigDecimal(txtRemainingAMount.getText()),
+                        paymentStatus.isSelected()
+                )
+        );
+        if (b){
+            new Alert(Alert.AlertType.CONFIRMATION, "Session Booking Complete").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR, "Session Booking Fail").show();
+        }
     }
 
     @FXML
@@ -108,7 +132,6 @@ public class BookSessionPageController implements Initializable {
         try {
             PatientDto patient  = sessionBookBO.serchById(cmbPatientId.getValue());
             if (patient != null) {
-                txtId.setText(patient.getId());
                 txtPatientName.setText(patient.getName());
                 txtPhoneNumber.setText(patient.getPhoneNumber());
             }
@@ -202,6 +225,7 @@ public class BookSessionPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         pageRefesh();
     }
 }

@@ -1,5 +1,6 @@
 package org.example.mindbalancecenter.dto.tm;
 
+import javafx.scene.control.Button;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,14 +11,8 @@ import java.sql.Date;
 @Data
 public class TherapySessionTM {
     private String id;
-    private String patientId;
-    private String phoneNumber;
-    private String sessionDuration;
     private Date sessionDate;
-    private Date placeDate;
-    private String therapistId;
-    private String programId;
     private BigDecimal payment;
-    private BigDecimal totalRemainingAmount;
     private boolean paymentStatus;
+    private Button deleteBtn;
 }

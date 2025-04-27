@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public class PaymentDAOImpl implements PaymentDAO {
     @Override
-    public boolean saveWithProgramRegistration(Session session, Payment payment) {
+    public boolean saveWithSession(Session session, Payment payment) {
         try{
-            session.save(payment);
+            session.merge(payment);
             return true;
         }catch (Exception e){
             e.printStackTrace();

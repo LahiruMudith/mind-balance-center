@@ -3,6 +3,7 @@ package org.example.mindbalancecenter.bo;
 import org.example.mindbalancecenter.dto.PatientDto;
 import org.example.mindbalancecenter.dto.TherapistDto;
 import org.example.mindbalancecenter.dto.TherapyProgramDto;
+import org.example.mindbalancecenter.dto.TherapySessionDto;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,4 +25,6 @@ public interface SessionBookBO extends SuperBO {
     List<TherapyProgramDto> getAllPrograms() throws SQLException, ClassNotFoundException;
 
     Long findRemainingDayCount(String value, String value1);
+
+    boolean bookSession(TherapySessionDto therapySessionDto);
 }

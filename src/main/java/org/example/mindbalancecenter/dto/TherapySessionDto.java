@@ -19,7 +19,7 @@ public class TherapySessionDto {
     private String sessionDuration;
     private Date sessionDate;
     private Date placeDate;
-    private String therapistId;
+    private String therapistName;
     private String programId;
     private BigDecimal payment;
     private BigDecimal totalRemainingAmount;
