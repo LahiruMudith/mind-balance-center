@@ -157,7 +157,7 @@ public class ProgramRegistrationBOImpl implements ProgramRegistrationBO {
             }
 
             //if program registration is saved, save payment
-            boolean isSavedPayment = paymentDAO.saveWithProgramRegistration(session, payment);
+            boolean isSavedPayment = paymentDAO.saveWithSession(session, payment);
             if (!isSavedPayment){
                 transaction.rollback();
                 return false;

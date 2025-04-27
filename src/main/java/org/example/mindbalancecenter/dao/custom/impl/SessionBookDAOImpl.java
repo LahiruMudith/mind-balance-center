@@ -50,4 +50,14 @@ public class SessionBookDAOImpl implements SessionBookDAO {
         }
         return lastId;
     }
+
+    @Override
+    public boolean saveWithSession(Session session, TherapySession therapySession) {
+        try{
+            session.merge(therapySession);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 }

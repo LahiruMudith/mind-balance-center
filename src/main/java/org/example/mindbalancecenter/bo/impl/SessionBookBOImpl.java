@@ -1,14 +1,16 @@
 package org.example.mindbalancecenter.bo.impl;
 
 import org.example.mindbalancecenter.bo.SessionBookBO;
+import org.example.mindbalancecenter.config.FactoryConfiguration;
 import org.example.mindbalancecenter.dao.DAOFactory;
 import org.example.mindbalancecenter.dao.custom.*;
 import org.example.mindbalancecenter.dto.PatientDto;
 import org.example.mindbalancecenter.dto.TherapistDto;
 import org.example.mindbalancecenter.dto.TherapyProgramDto;
-import org.example.mindbalancecenter.entitiy.Patient;
-import org.example.mindbalancecenter.entitiy.Therapist;
-import org.example.mindbalancecenter.entitiy.TherapyProgram;
+import org.example.mindbalancecenter.dto.TherapySessionDto;
+import org.example.mindbalancecenter.entitiy.*;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class SessionBookBOImpl implements SessionBookBO {
     TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPY_PROGRAM);
     TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST);
     QuaryDAO quaryDAO = (QuaryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.QUARRY);
+    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
     @Override
     public String getNewId() throws SQLException, ClassNotFoundException {
         String lastId = sessionBookDAO.getNextId();
@@ -128,5 +131,91 @@ public class SessionBookBOImpl implements SessionBookBO {
     @Override
     public Long findRemainingDayCount(String patientId, String programId) {
         return quaryDAO.getRemainingDayCount(patientId, programId);
+    }
+
+    @Override
+    public boolean bookSession(TherapySessionDto therapySessionDto) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            //check if patient exist
+            Optional<Patient> searchPatient = patientDAO.search(therapySessionDto.getPatientId());
+            if (searchPatient.isEmpty()){
+                transaction.rollback();
+                return false;
+            }
+
+            //check if program exist
+            Optional<TherapyProgram> searchProgram = therapyProgramDAO.search(therapySessionDto.getProgramId());
+            if (searchProgram.isEmpty()){
+                transaction.rollback();
+                return false;
+            }
+
+            //check if therapist exist
+            Optional<Therapist> therapist = Optional.ofNullable(therapistDAO.searchByName(therapySessionDto.getTherapistName()));
+            if (therapist.isEmpty()){
+                transaction.rollback();
+                return false;
+            }
+
+            TherapySession therapySession = new TherapySession();
+            therapySession.setId(therapySessionDto.getId());
+            therapySession.setPatientId(searchPatient.get());
+            therapySession.setPhoneNumber(therapySessionDto.getPhoneNumber());
+            therapySession.setSessionDuration(therapySessionDto.getSessionDuration());
+            therapySession.setSessionDate(therapySessionDto.getSessionDate());
+            therapySession.setPlaceDate(therapySessionDto.getPlaceDate());
+            therapySession.setTherapistId(therapist.get());
+            therapySession.setProgramId(searchProgram.get());
+            therapySession.setPayment(therapySessionDto.getPayment());
+            therapySession.setTotalRemainingAmount(therapySessionDto.getTotalRemainingAmount());
+            therapySession.setPaymentStatus(therapySessionDto.isPaymentStatus());
+
+            Payment payment = new Payment();
+
+            String lastId = paymentDAO.getNextId();
+            String newPayId = null;
+            if (lastId != null) {
+                int newId = Integer.parseInt(lastId.substring(2)) + 1;
+                newPayId =  String.format("PY%03d", newId);
+            } else {
+                newPayId =  "PY001";
+            }
+
+            payment.setId(newPayId);
+            payment.setAmount(therapySessionDto.getPayment());
+            payment.setPaymentDate(therapySessionDto.getPlaceDate());
+            payment.setSessionId(therapySession);
+            payment.setProgramRegistrationId(null);
+
+            therapySession.setPaymentId(payment);
+
+            //save therapy session
+            boolean isSavedSession = sessionBookDAO.saveWithSession(session, therapySession);
+            if (!isSavedSession){
+                transaction.rollback();
+                return false;
+            }
+
+            //save payment
+            boolean isSavedPayment = paymentDAO.saveWithSession(session, payment);
+            if (!isSavedPayment){
+                transaction.rollback();
+                return false;
+            }
+
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (session != null){
+                session.close();
+            }
+        }
     }
 }

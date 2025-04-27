@@ -5,5 +5,5 @@ import org.example.mindbalancecenter.entitiy.Payment;
 import org.hibernate.Session;
 
 public interface PaymentDAO extends CrudDAO<Payment> {
-    boolean saveWithProgramRegistration(Session session, Payment payment);
+    boolean saveWithSession(Session session, Payment payment);
 }

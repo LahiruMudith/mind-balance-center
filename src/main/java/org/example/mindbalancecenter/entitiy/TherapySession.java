@@ -1,6 +1,9 @@
 package org.example.mindbalancecenter.entitiy;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -9,6 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "therapy_session")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class TherapySession {
     @Id
     @Column (name = "session_id")
@@ -39,17 +45,17 @@ public class TherapySession {
     @OneToOne(mappedBy = "sessionId", cascade = CascadeType.ALL)
     private Payment paymentId;
 
-    public TherapySession(String id, Patient patientId, String phoneNumber, String sessionDuration, Date sessionDate, Date placeDate, Therapist therapistId, TherapyProgram programId, BigDecimal payment, BigDecimal totalRemainingAmount, boolean paymentStatus) {
-        this.id = id;
-        this.patientId = patientId;
-        this.phoneNumber = phoneNumber;
-        this.sessionDuration = sessionDuration;
-        this.sessionDate = sessionDate;
-        this.placeDate = placeDate;
-        this.therapistId = therapistId;
-        this.programId = programId;
-        this.payment = payment;
-        this.totalRemainingAmount = totalRemainingAmount;
-        this.paymentStatus = paymentStatus;
-    }
+//    public TherapySession(String id, Patient patientId, String phoneNumber, String sessionDuration, Date sessionDate, Date placeDate, Therapist therapistId, TherapyProgram programId, BigDecimal payment, BigDecimal totalRemainingAmount, boolean paymentStatus) {
+//        this.id = id;
+//        this.patientId = patientId;
+//        this.phoneNumber = phoneNumber;
+//        this.sessionDuration = sessionDuration;
+//        this.sessionDate = sessionDate;
+//        this.placeDate = placeDate;
+//        this.therapistId = therapistId;
+//        this.programId = programId;
+//        this.payment = payment;
+//        this.totalRemainingAmount = totalRemainingAmount;
+//        this.paymentStatus = paymentStatus;
+//    }
 }

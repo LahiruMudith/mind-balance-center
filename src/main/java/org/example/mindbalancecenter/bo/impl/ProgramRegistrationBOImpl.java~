@@ -107,26 +107,31 @@ public class ProgramRegistrationBOImpl implements ProgramRegistrationBO {
         Transaction transaction = session.beginTransaction();
 
         try {
+            //check if patient exist
             Optional<Patient> searchPatient = patientDAO.search(programRegistrationDto.getPatientId());
             if (searchPatient.isEmpty()){
                 transaction.rollback();
                 return false;
             }
 
+            //check if program exist
             Optional<TherapyProgram> searchProgram = therapyProgramDAO.search(programRegistrationDto.getProgramId());
             if (searchProgram.isEmpty()){
                 transaction.rollback();
                 return false;
             }
 
+            //create new program registration and payment
             Payment payment = new Payment();
             ProgramRegistration programRegistration = new ProgramRegistration();
 
+            //set program registration values
             programRegistration.setId(programRegistrationDto.getProgramRegistrationId());
             programRegistration.setDate(programRegistrationDto.getDate());
             programRegistration.setProgramId(searchProgram.get());
             programRegistration.setPatientId(searchPatient.get());
 
+            //Get the last payment id and create a new one
             String lastPaymentId = paymentDAO.getNextId();
             String newPaymentId = null;
 
@@ -137,24 +142,27 @@ public class ProgramRegistrationBOImpl implements ProgramRegistrationBO {
                 newPaymentId =  "PY001";
             }
 
+            //set payment values
             payment.setId(newPaymentId);
             payment.setAmount(BigDecimal.valueOf(programRegistrationDto.getPaymentAmount()));
             payment.setPaymentDate(programRegistrationDto.getDate());
             payment.setSessionId(null);
             payment.setProgramRegistrationId(programRegistration);
-//            programRegistration.setPayment(payment);
 
+            //save program registration
             boolean isSavedProgramRegistration = programRegistrationDAO.saveWithPayment(session, programRegistration);
             if (!isSavedProgramRegistration){
                 transaction.rollback();
                 return false;
             }
 
+            //if program registration is saved, save payment
             boolean isSavedPayment = paymentDAO.saveWithProgramRegistration(session, payment);
             if (!isSavedPayment){
                 transaction.rollback();
                 return false;
             }
+            //if payment is saved, transaction commit and return ture
             transaction.commit();
             return true;
         }catch (Exception e){
